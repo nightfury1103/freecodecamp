@@ -298,9 +298,7 @@ class BarPlotTestCase(unittest.TestCase):
         self.ax = self.fig.axes[0]
 
     def test_bar_plot_legend_labels(self):
-        actual = []
-        for label in self.ax.get_legend().get_texts():
-            actual.append(label.get_text())
+        actual = [label.get_text() for label in self.ax.get_legend().get_texts()]
         expected = [
             "January",
             "February",
@@ -334,9 +332,10 @@ class BarPlotTestCase(unittest.TestCase):
             expected,
             "Expected bar plot ylabel to be 'Average Page Views'",
         )
-        actual = []
-        for label in self.ax.get_xaxis().get_majorticklabels():
-            actual.append(label.get_text())
+        actual = [
+            label.get_text() for label in self.ax.get_xaxis().get_majorticklabels()
+        ]
+
         expected = ["2016", "2017", "2018", "2019"]
         self.assertEqual(
             actual,
@@ -392,18 +391,22 @@ class BoxPlotTestCase(unittest.TestCase):
         self.assertEqual(
             actual, expected, "Expected box plot 2 ylabel to be 'Page Views'"
         )
-        actual = []
-        for label in self.ax1.get_xaxis().get_majorticklabels():
-            actual.append(label.get_text())
+        actual = [
+            label.get_text()
+            for label in self.ax1.get_xaxis().get_majorticklabels()
+        ]
+
         expected = ["2016", "2017", "2018", "2019"]
         self.assertEqual(
             actual,
             expected,
             "Expected box plot 1 secondary labels to be '2016', '2017', '2018', '2019'",
         )
-        actual = []
-        for label in self.ax2.get_xaxis().get_majorticklabels():
-            actual.append(label.get_text())
+        actual = [
+            label.get_text()
+            for label in self.ax2.get_xaxis().get_majorticklabels()
+        ]
+
         expected = [
             "Jan",
             "Feb",
@@ -423,10 +426,12 @@ class BoxPlotTestCase(unittest.TestCase):
             expected,
             "Expected box plot 2 secondary labels to be 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'",
         )
-        actual = []
+        actual = [
+            label.get_text()
+            for label in self.ax1.get_yaxis().get_majorticklabels()
+        ]
 
-        for label in self.ax1.get_yaxis().get_majorticklabels():
-            actual.append(label.get_text())
+
         expected = [
             "0",
             "20000",

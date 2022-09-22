@@ -226,9 +226,10 @@ class CatPlotTestCase(unittest.TestCase):
         self.assertEqual(
             actual, expected, "Expected line plot ylabel to be 'total'"
         )
-        actual = []
-        for label in self.ax.get_xaxis().get_majorticklabels():
-            actual.append(label.get_text())
+        actual = [
+            label.get_text() for label in self.ax.get_xaxis().get_majorticklabels()
+        ]
+
         expected = [
             "active",
             "alco",
@@ -263,9 +264,7 @@ class HeatMapTestCase(unittest.TestCase):
         self.ax = self.fig.axes[0]
 
     def test_heat_map_labels(self):
-        actual = []
-        for label in self.ax.get_xticklabels():
-            actual.append(label.get_text())
+        actual = [label.get_text() for label in self.ax.get_xticklabels()]
         expected = [
             "id",
             "age",

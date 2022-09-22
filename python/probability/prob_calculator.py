@@ -14,7 +14,7 @@ class Hat:
         if num >= n:
             return self.contents
         r = []
-        for i in range(0, num):
+        for _ in range(num):
             bid = random.randint(0, n - 1)
             r.append(self.contents.pop(bid))
             n -= 1
@@ -24,7 +24,7 @@ class Hat:
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     count = 0
-    for _ in range(0, num_experiments):
+    for _ in range(num_experiments):
         h = copy.deepcopy(hat)
         balls = h.draw(num_balls_drawn)
         d = {}
@@ -32,12 +32,7 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
             v = d.get(b, 0)
             d[b] = v + 1
 
-        found = True
-        for b, v in expected_balls.items():
-            if d.get(b, 0) < v:
-                found = False
-                break
-
+        found = all(d.get(b, 0) >= v for b, v in expected_balls.items())
         if found:
             count += 1
 

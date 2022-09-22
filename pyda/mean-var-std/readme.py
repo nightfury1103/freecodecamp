@@ -99,7 +99,7 @@ def calculate(arr):
         raise ValueError("List must contain nine numbers.")
 
     m = np.array(arr).reshape([3, 3])
-    r = {
+    return {
         "mean": [m.mean(0).tolist(), m.mean(1).tolist(), m.mean()],
         "variance": [m.var(0).tolist(), m.var(1).tolist(), m.var()],
         "standard deviation": [m.std(0).tolist(), m.std(1).tolist(), m.std()],
@@ -107,10 +107,9 @@ def calculate(arr):
         "min": [m.min(0).tolist(), m.min(1).tolist(), m.min()],
         "sum": [m.sum(0).tolist(), m.sum(1).tolist(), m.sum()],
     }
-    return r
 
 
-pprint(calculate([i for i in range(0, 9)]))
+pprint(calculate(list(range(9))))
 
 # ## Test
 #

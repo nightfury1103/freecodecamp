@@ -21,7 +21,7 @@ def arithmetic_arranger(problems, calc=False):
         [a, op, b] = p.split()
 
         # check the operator
-        if op != '+' and op != "-":
+        if op not in ['+', "-"]:
             return ERR_OP
 
         if len(a) > 4 or len(b) > 4:
@@ -35,11 +35,11 @@ def arithmetic_arranger(problems, calc=False):
     ss = formated[0]
     spaces = " " * 4
     for p in formated[1:]:
-        for i in range(0, len(ss)):
+        for i in range(len(ss)):
             ss[i] += spaces + p[i]
 
     if not calc:
-        ss = ss[0:3]
+        ss = ss[:3]
 
     return '\n'.join(ss)
 
@@ -53,7 +53,7 @@ def fmt(a, op, b, calc):
 
     r = str(r)
     n += 2  # for the op and a space
-    res = [a.rjust(n), op + " " + b.rjust(n - 2), '-' * n]
+    res = [a.rjust(n), f"{op} {b.rjust(n - 2)}", '-' * n]
     if calc:
         res.append(r.rjust(n))
     return res

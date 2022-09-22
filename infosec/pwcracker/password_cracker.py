@@ -28,10 +28,7 @@ for s in salts:
 def crack_sha1_hash(h, use_salts=False):
     hs = salted_hashes if use_salts else hashes
     pw = hs.get(h)
-    if not pw:
-        return "PASSWORD NOT IN DATABASE"
-
-    return pw
+    return pw or "PASSWORD NOT IN DATABASE"
 
 
 print(salted_hashes.get("53d8b3dc9d39f0184144674e310185e41a87ffd5"))

@@ -27,10 +27,10 @@ class Category:
         return True
 
     def transfer(self, amount, other_cat):
-        if not self.withdraw(amount, "Transfer to " + other_cat.name):
+        if not self.withdraw(amount, f"Transfer to {other_cat.name}"):
             return False
 
-        other_cat.deposit(amount, "Transfer from " + self.name)
+        other_cat.deposit(amount, f"Transfer from {self.name}")
         return True
 
     def get_balance(self):
@@ -50,11 +50,12 @@ class Category:
 
     def __str__(self):
         ss = [self.name.center(30, "*")]
-        for t in self.ledger:
-            desc = t["description"][0:23]
-            ss.append("{:<23}{:>7.2f}".format(desc, t["amount"]))
+        ss.extend(
+            "{:<23}{:>7.2f}".format(t["description"][:23], t["amount"])
+            for t in self.ledger
+        )
 
-        ss.append("Total: {}".format(self.balance))
+        ss.append(f"Total: {self.balance}")
         return "\n".join(ss)
 
 
@@ -63,21 +64,18 @@ def create_spend_chart(categories):
     total = sum(spending)
     percentages = [s * 100 / total for s in spending]
     ss = ["Percentage spent by category"]
-    for i in range(0, 11):
+    for i in range(11):
         level = 10 * (10 - i)
         s = '{:>3}| '.format(level)
         for p in percentages:
-            if p >= level:
-                s += "o  "
-            else:
-                s += "   "
+            s += "o  " if p >= level else "   "
         ss.append(s)
     padding = " " * 4
     ss.append(padding + "-" * 3 * len(spending) + "-")
 
     names = [c.name for c in categories]
     n = max(map(len, names))
-    for i in range(0, n):
+    for i in range(n):
         s = padding
         for name in names:
             s += " "
@@ -85,6 +83,6 @@ def create_spend_chart(categories):
             s += " "
 
         # damn the additional white space, I hate that
-        ss.append(s + " ")
+        ss.append(f"{s} ")
 
     return "\n".join(ss)

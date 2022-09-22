@@ -4,17 +4,16 @@ import re
 
 
 def get_open_ports(target, port_range, verbose=False):
-    open_ports = [] if not verbose else "";
+    open_ports = "" if verbose else [];
     fmt = "{:<8} {:<}\n"
     ip = ""
-    is_address = re.match("\w+(\.\w+)*", target)
-    if is_address:
+    if is_address := re.match("\w+(\.\w+)*", target):
         try:
             (host, _, _) = socket.gethostbyaddr(target)
             if host == target:
-                open_ports += ("Open ports for {}\n".format(host))
+                open_ports += f"Open ports for {host}\n"
             else:
-                open_ports += ("Open ports for {} ({})\n".format(host, target))
+                open_ports += f"Open ports for {host} ({target})\n"
             open_ports += fmt.format("PORT", "SERVICE")
         except socket.gaierror:
             return "Error: Invalid IP address"
@@ -22,7 +21,7 @@ def get_open_ports(target, port_range, verbose=False):
         try:
             ip = socket.gethostbyname(target)
             if verbose:
-                open_ports += ("Open ports for {} ({})\n".format(target, ip))
+                open_ports += f"Open ports for {target} ({ip})\n"
                 open_ports += fmt.format("PORT", "SERVICE")
         except socket.gaierror as err:
             return "Error: Invalid ip"

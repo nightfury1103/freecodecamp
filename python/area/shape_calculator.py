@@ -33,7 +33,7 @@ class Rectangle:
         return (self.width // rect.width) * (self.height // rect.height)
 
     def __str__(self):
-        return "Rectangle(width={}, height={})".format(self.width, self.height)
+        return f"Rectangle(width={self.width}, height={self.height})"
 
 
 class Square(Rectangle):
@@ -51,4 +51,4 @@ class Square(Rectangle):
         self.set_side(h)
 
     def __str__(self):
-        return "Square(side={})".format(self.width)
+        return f"Square(side={self.width})"
